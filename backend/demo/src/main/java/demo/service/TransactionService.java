@@ -1,25 +1,14 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Transaction;
-import com.example.demo.repository.TransactionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
+public interface TransactionService {
 
-@Service
-public class TransactionService {
+    Page<Transaction> getAll(Pageable pageable);
 
-    @Autowired
-    private TransactionRepository transactionRepository;
+    Transaction getById(Long id);
 
-    // Save transaction
-    public Transaction saveTransaction(Transaction transaction) {
-        return transactionRepository.save(transaction);
-    }
-
-    // Get all transactions
-    public List<Transaction> getAllTransactions() {
-        return transactionRepository.findAll();
-    }
+    Transaction create(Transaction transaction);
 }

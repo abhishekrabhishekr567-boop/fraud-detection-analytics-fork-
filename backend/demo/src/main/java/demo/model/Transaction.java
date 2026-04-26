@@ -1,40 +1,52 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import java.time.LocalDateTime;
-
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "transactions")
-@Data
-@EntityListeners(AuditingEntityListener.class)
 public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id")
-    private Long userId;
-
-    @Column(name = "amount")
+    @NotNull(message = "Amount must not be null")
     private Double amount;
 
-    @Column(name = "type")
+    @NotBlank(message = "Type must not be blank")
     private String type;
 
-    @Column(name = "status")
-    private String status;
+    public Transaction() {
+    }
 
-    @CreatedDate
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
+    public Transaction(Long id, Double amount, String type) {
+        this.id = id;
+        this.amount = amount;
+        this.type = type;
+    }
 
-    @LastModifiedDate
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }
